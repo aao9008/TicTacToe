@@ -1,12 +1,10 @@
 class Player
     attr_accessor :name, :mark
 
-    def initialization (name, marker)
+    def initialization (name, game, marker)
         @name = name
+        @game = game
         @marker = marker
     end
 
-    def display_player
-        puts "Player #{name} whas joined the game and has chosen #{marker} as his marker."
-    end
-end
+end 
