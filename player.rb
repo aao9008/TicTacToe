@@ -1,5 +1,5 @@
 class Player
-    attr_accessor :name, :mark
+    attr_accessor :name, :marker
 
     def initialize (name, game, marker)
         @name = name
@@ -7,4 +7,22 @@ class Player
         @marker = marker
     end
 
+    def select_postion 
+        # Print the game board to show currently open positions 
+        @game.print_board
+
+        # Ask user for valid postion until user provides valid input
+        loop do 
+            # Ask user for postion selection
+            print "Select your position: "
+
+            # Get and convert user input to integer
+            selection = gets.to_i
+              
+            # Check board for open index (aka nil values), if @board[selection] is nil (aka open) return selection
+            return selection if @game.free_positions.include?(selection)
+
+            puts "Invalid selection, please pick a number on the board!"
+        end 
+    end 
 end 
