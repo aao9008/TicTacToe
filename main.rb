@@ -3,4 +3,4 @@ require_relative 'player.rb'
 
 include TicTacToe
 
-Game.new(Player,Player).print_board
+Game.new(Player,Player).play
