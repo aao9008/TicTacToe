@@ -71,12 +71,12 @@ module TicTacToe
         place_player_marker(current_player)
 
         # If player is winner after palcing their marker end game and display winner message
-        if player_has_won?(current_player)
+        if game_over?
           puts "#{current_player.name} wins!"
           print_board
           return
         # If there is no winner and board is full delclare draw
-        elsif board_full?
+        elsif full?
           puts "It's a draw."
           print_board
           return
@@ -95,7 +95,7 @@ module TicTacToe
     # Place player marker on the board
     def place_player_marker(player)
       # Ask player for postion choice
-      selection = player.select_postion
+      selection = player.select_position
 
       # Declare what player has chosen
       puts("#{player.name} places #{player.marker} on position #{selection}")
@@ -109,15 +109,20 @@ module TicTacToe
     end
 
     # Check if there are any open positions left
-    def board_full?
+    def full?
       free_positions.empty?
     end
 
-    def player_has_won?(player)
+    def game_over?
       # Check if any winning line...
       LINES.any? do |line|
         # ...has all postions when compared to the board owned by the same player
-        line.all? { |position| @board[position] == player.marker }
+        marker_list = line.each_with_object([]) do |position, array|
+          array << @board[position]
+          array
+        end
+
+        marker_list.uniq.length == 1 && marker_list.include?(nil) == false
       end
     end
   end
